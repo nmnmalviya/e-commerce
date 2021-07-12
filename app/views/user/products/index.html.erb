@@ -1,0 +1,20 @@
+<h1>Hello</h1>
+<div class="container">
+  <div class="row align-items-start">
+    <%@products.each do |product|%>
+    <div class="col-sm" >
+      <div class="container" style="background-color: lightblue;">
+      <ul>
+          <%= image_tag(product.picture_url, :width => 250, :height => 250 ,:radius => 10)%>
+          <br>
+          <br>
+          <h5>NAME :- <mark><%= product.name %></mark></h5>
+          <h5>ABOUT :- <mark><%= product.about %></mark></h5>
+          <h5>Price :- <mark><%= product.price %> /-</mark></h5>
+          <%= link_to "ADD CART",user_carts_path(product),method: :post,class:"btn btn-primary btn-sm"%>
+      </ul>
+      </div>
+    </div>
+    <%end%>
+  </div>
+</div>

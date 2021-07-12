@@ -1,0 +1,6 @@
+<%= image_tag(@product.picture_url, :width => 250, :height => 250)%>
+<h4 style="color:skyblue;">Product Name :- <mark><%= @product.name %></mark> </h1>
+<h4 style="color:skyblue;">About Product :- <mark><%= @product.about %></mark></h4>
+<h4 style="color:skyblue;">Price :- <mark><%= @product.price %> /-</mark></h4>
+<%= link_to "EDIT" , edit_supplier_product_path(@product),class:"btn btn-primary btn-sm"%>
+<%= link_to "delete" ,supplier_product_path(@product), method: :delete,class:"btn btn-danger btn-sm"%>

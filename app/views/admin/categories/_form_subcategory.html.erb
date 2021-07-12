@@ -1,0 +1,23 @@
+<%= form_with model: [:admin, subcategory] do |form| %>
+  <div>
+  <%= form.hidden_field :parent_id, value: "#{parent_id}" %>
+  </div>
+  <% if subcategory.errors.any? %>
+<h2>Error</h2>
+<ul>
+  <% subcategory.errors.full_messages.each do |message| %>
+  <li>
+    <mark><%= message%></mark>
+  </li>
+  <%end%>
+</ul>
+<%end%>
+  <div>
+    <%= form.label :Add_category %><br>
+    <%= form.text_field :category_name %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

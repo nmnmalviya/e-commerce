@@ -1,0 +1,47 @@
+<%= form_with model: [:supplier, product] do |form| %>
+<div class="container">
+
+<% if product.errors.any? %>
+  <h2>Error</h2>
+<ul>
+  <% product.errors.full_messages.each do |message| %>
+    <li>
+      <mark><%= message%></mark>
+    </li>
+  <%end%>
+</ul>
+<%end%>
+
+
+  <h4>ADD <%=category.category_name%> PRODUCTS</h4><br>
+  <p>
+    <%= form.hidden_field(:picture_cache)%>
+    <%= form.label :Image %><br>
+      <%= form.file_field(:picture)%>
+  </p>
+  
+  <p>
+    <%= form.hidden_field :category_name, value: "#{category.category_name}"%>
+    <%= form.hidden_field :category_id, value: category.id%>
+  </p>
+
+  <p>
+    <%= form.label :product_name %><br>
+    <%= form.text_field :name %>
+  </p>
+  
+  <p>
+    <%= form.label :about %><br>
+    <%= form.text_area :about %>
+  </p>
+
+  <p>
+    <%= form.label :price %><br>
+    <%= form.number_field :price %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+</div>
+<% end %>

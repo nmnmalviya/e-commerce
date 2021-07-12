@@ -1,0 +1,22 @@
+<center>
+<%= form_with model: [:admin, category] do |form| %>
+<% if category.errors.any? %>
+<h2>Error</h2>
+<ul>
+  <% category.errors.full_messages.each do |message| %>
+  <li>
+    <mark><%= message%></mark>
+  </li>
+  <%end%>
+</ul>
+<%end%>
+  
+  <div>
+    <%= form.label :EDIT_category %><br>
+    <%= form.text_field :category_name ,class:"form-control",style:"width:250px;"%>
+  </div>
+  <div>
+    <%= form.submit "update",class:"btn btn-primary"%>
+  </div>
+<% end %>
+</center>

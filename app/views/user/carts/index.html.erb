@@ -1,0 +1,10 @@
+<center>
+<% if user_signed_in? %>
+<%= render 'user_cart_products',carts:@carts %>
+<%else%>
+<%= render 'session_cart_products',cart:@cart,products:@products %>
+<%end%>
+</center>
+
+
+

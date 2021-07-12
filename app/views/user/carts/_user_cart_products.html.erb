@@ -1,0 +1,42 @@
+<%carts.each do |cart|%>
+  <% if cart.line_items.present? and cart.status=='unorderd'%>
+    <div class="container">
+      <% sum=0 %>
+      <% cart.line_items.each do |lineitem |%>
+      <% sum+=lineitem.price*lineitem.quantity %>
+        <div class="row align-items-start">  
+            <div class="col-sm" >
+              <div class="container" style="background-color: aliceblue;">
+                <ul>
+                  <%= image_tag(lineitem.product.picture_url, :width => 250, :height => 250 ,:radius => 10)%>
+                  <br>
+                  <br>
+                  <h5>NAME :- <mark><%= lineitem.product.name %></mark></h5>
+                  <h5>ABOUT :- <mark><%= lineitem.product.about %></mark></h5>
+                  <h5>Price :- <mark><%= lineitem.price %>/-</mark></h5>
+                  <h5>Total :- <mark><%= lineitem.price*lineitem.quantity %>/-</mark>
+                    <%= form_with model: [:user,lineitem] ,url:user_add_quantity_to_cart_path,method: :post do |form| %>
+                    <p>
+                      <%= form.hidden_field :id ,value:lineitem.id %>
+                      <%= form.label :Quantity %><br>
+                      <%= form.number_field :quantity ,min: 1, max: 10,:style => "width:40px"%>
+                    </p>
+                    <p>
+                      <%= form.submit "ADD QUANTITY", class:"btn btn-primary btn-sm"%>
+                    </p>
+                    <% end %>
+                  <%= link_to "Cancel",user_remove_from_cart_path(product: lineitem.product.id,cart: cart.id),class:"btn btn-primary btn-sm" ,style:"width:117px;" %>
+                </ul>
+              </div>
+            </div>
+    <%end%>
+        </div>
+    </div>
+    <h5>Cart Total :- <mark><%= sum %>/-</mark></h5>
+    <% if cart.order %>  
+        <%= link_to "buy",edit_user_order_path(id:cart.order.id,total:sum,cart_id:cart.id),class:"btn btn-primary btn-sm",style:"width:1200px;"%>
+    <% else %>
+        <%= link_to "buy",new_user_order_path(cart_id:cart.id,total:sum),class:"btn btn-primary btn-sm",style:"width:1200px;"%>
+    <%end%>
+  <%end%>
+<%end%>

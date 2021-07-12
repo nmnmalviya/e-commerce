@@ -1,0 +1,48 @@
+<center>
+  <h1><mark>Order Cart</mark></h1>
+  <br>
+<div class="container" style="background-color:antiquewhite; height: auto;">
+
+<%= form_with model: [:user, order] do |form| %>
+
+<% if order.errors.any? %>
+<h2>Error</h2>
+  <ul>
+    <% order.errors.full_messages.each do |message| %>
+      <mark><%= message%></mark>
+    <%end%>
+  </ul>
+    <%end%>
+
+<div class="form-group">
+  <%= form.hidden_field :cart_id, value: cart.id%>
+  <%= form.hidden_field :total ,value:total %>
+  <%= form.hidden_field :status ,value:"awaiting_payment"%>
+</div>
+<br>
+
+<div class="form-group">
+  <%= form.label :name %><br>
+  <%= form.text_field :name ,class:"form-control",style:"width:250px;"%>
+</div>
+  
+<div class="form-group">
+  <%= form.label :Email %><br>
+  <%= form.text_field :email ,class:"form-control",style:"width:250px;"%>
+</div>
+
+<div class="form-group">
+  <%= form.label :Contact_Number %><br>
+  <%= form.telephone_field :number ,class:"form-control",style:"width:250px;"%>
+</div>
+
+<div class="form-group">
+  <%= form.label :Address %><br>
+  <%= form.text_area :address ,class:"form-control",style:"width:250px;"%>
+</div>
+<br>
+    <%= form.submit %>
+  </div>
+<% end %>
+</div>
+</center>

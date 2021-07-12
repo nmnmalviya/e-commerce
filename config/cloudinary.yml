@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: nmnmalviya
+  api_key: '997151521535593'
+  api_secret: QodWVq9J3-BNMD1ROuH3e4WPd_M
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: nmnmalviya
+  api_key: '997151521535593'
+  api_secret: QodWVq9J3-BNMD1ROuH3e4WPd_M
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: nmnmalviya
+  api_key: '997151521535593'
+  api_secret: QodWVq9J3-BNMD1ROuH3e4WPd_M
+  enhance_image_tag: true
+  static_file_support: false

@@ -1,0 +1,36 @@
+<center>
+<h1>Category</h1>
+</center>
+<table class="table">
+   <thead class="table-light">
+    <tr>
+      <th>TYPE</th>
+      <th>NAME</th>
+      <th colspan="3"></th>
+    </tr>
+   </thead>
+<tbody>
+<% @categorys.each do |category|%>
+    <% unless category.parent_id.present? %>
+      <tr style="background: lightblue;">
+          <td>CATEGORY</td>
+          <td><%=category.category_name %></td>
+          <td>
+          <% unless category.subcategories.present? %>
+          <%= link_to "Show Product",user_product_path(category),class:"btn btn-success btn-sm" %>
+          <%end%>
+        </td>
+      </tr>
+</tbody>
+<tbody>
+      <% category.subcategories.each do |subcategorie| %>
+        <tr>
+          <td>SUBCATEGORY</td>
+          <td><%=subcategorie.category_name %></td>
+          <td><%= link_to "show Product",user_product_path(subcategorie),class:"btn btn-success btn-sm" %></td>
+        </tr>
+      <%end%>
+    <%end%>
+</tbody>
+<%end%>
+</table>

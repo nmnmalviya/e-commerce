@@ -1,0 +1,30 @@
+<table class="table table-bordered">
+	  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Address</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Date</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+<% @orders.each do |order| %>
+  <tbody>
+    <tr>
+      <td><%= order.name %></td>
+      <td><%= order.email %></td>
+	    <td><%= order.address %></td>
+	    <td><%= order.total %></td>
+      <td><%= order.created_at.localtime %></td>
+      <td><%= order.status %></td>
+      <%if order.status=="awaiting_payment"%>
+        <td><%= link_to "Retry" ,user_carts_path(),class:"btn btn-primary"%></td>
+      <%else%>
+        <td><%= link_to "SHOW" ,user_order_path(order),class:"btn btn-primary"%></td>
+      <%end%>
+    </tr>
+</tbody>
+<%end%>
+</table>

@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row align-items-start">
+    <%@products.each do |product|%>
+    <div class="col-sm">
+      <ul>
+        <%= image_tag(product.picture_url, :width => 250, :height => 250 ,:radius => 10)%>
+        <br>
+        <br>
+        <h5>NAME :- <mark><%= product.name %></mark></h5>
+        <h5>ABOUT :- <mark><%= product.about %></mark></h5>
+        <h5>Price :- <mark><%= product.price %> /-</mark></h5>
+        <%= link_to "SHOW",supplier_product_path(product),class:"btn btn-secondary btn-sm"%>
+    </ul>
+      </div>
+    <%end%>
+  </div>
+</div>

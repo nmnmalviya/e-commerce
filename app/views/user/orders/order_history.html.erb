@@ -1,0 +1,51 @@
+<% @carts.each do |cart| %>
+<center>
+<h5><mark>Order Details</mark></h5>
+</center>
+<table class="table table-bordered">
+	<thead>
+   		<tr>
+     		<th scope="col">Product Name</th>
+      		<th scope="col">Quantity</th>
+      		<th scope="col">Price</th>
+      		<th scope="col">Total</th>
+    	</tr>
+  	</thead>
+	<% cart.line_items.each do |lineitem |%>	
+  	<tbody>
+    	<tr>
+      	<td><mark><%= lineitem.product.name %></td>
+      	<td><mark><%= lineitem.quantity %></td>
+      	<td><mark><%= lineitem.price %>/-</td>
+      	<td><mark><%= lineitem.price*lineitem.quantity %>/-</td>
+    	</tr>
+	</tbody>
+	<%end%>
+	</table>
+	<center>
+	<h5><mark  style="background-color:gray;">Delivery Details</mark></h5>
+	</center>
+	<table class="table table-bordered table-striped table-dark">
+	  <thead>
+   		<tr>
+     	 	<th scope="col">Name</th>
+      		<th scope="col">Email</th>
+      		<th scope="col">Mobile No.</th>
+      		<th scope="col">Address</th>
+      		<th scope="col">Amount</th>
+    	</tr>
+  	  </thead>
+  	  <tbody>
+    	<tr>
+      		<td><mark><%= cart.order.name %></td>
+      		<td><mark><%= cart.order.email %></td>
+      		<td><mark><%= cart.order.number %></td>
+	  		<td><mark><%= cart.order.address %></td>
+	  		<td><mark><%= cart.order.Total %>/-</td>
+    	</tr>
+      </tbody>
+  </table>
+  <br>
+  <hr>
+  <br>
+<%end%>

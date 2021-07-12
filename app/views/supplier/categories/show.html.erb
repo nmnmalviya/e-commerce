@@ -1,0 +1,10 @@
+
+
+<% unless @category.parent_id.present? %>
+	<h4 style="color: skyblue;">CATEGORY:-</h5>
+	<h5><%=@category.category_name %></hd>
+	<h4 style="color:lightsteelblue;">SUBCATEGORY:-</h2>
+		<% @category.subcategories.each do |subcategorie| %>
+			<h5><%=subcategorie.category_name %></h4>
+		<%end%>
+<%end%>
