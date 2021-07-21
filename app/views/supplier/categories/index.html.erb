@@ -10,9 +10,9 @@
 <tbody>
 <% @categorys.each do |category|%>
     <% unless category.parent_id.present? %>
-      <tr style="background: lightblue;">
+      <tr style="background: gray;">
           <td>CATEGORY</td>
-          <td><%=category.category_name %></td>
+          <td><%=category.category_name.upcase %></td>
           <td>
           <% unless category.subcategories.present? %>
           <%= link_to "Add Product",new_supplier_product_path(:id => category.id),class:"btn btn-success btn-sm" %>
@@ -24,7 +24,7 @@
       <% category.subcategories.each do |subcategorie| %>
         <tr>
           <td>SUBCATEGORY</td>
-          <td><%=subcategorie.category_name %></td>
+          <td><%=subcategorie.category_name.upcase %></td>
           <td><%= link_to "Add Product",new_supplier_product_path(:id => subcategorie.id),class:"btn btn-success btn-sm" %></td>
         </tr>
       <%end%>

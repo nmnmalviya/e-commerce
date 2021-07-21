@@ -12,12 +12,12 @@
 <tbody>
 <% @categorys.each do |category|%>
     <% unless category.parent_id.present? %>
-      <tr style="background: lightblue;">
+      <tr style="background:gray; color:white;">
           <td>CATEGORY</td>
           <td><%=category.category_name %></td>
           <td>
           <% unless category.subcategories.present? %>
-          <%= link_to "Show Product",user_product_path(category),class:"btn btn-success btn-sm" %>
+          <%= link_to "Show Product",user_product_path(category),class:"btn btn-secondary btn-sm" %>
           <%end%>
         </td>
       </tr>
@@ -27,7 +27,7 @@
         <tr>
           <td>SUBCATEGORY</td>
           <td><%=subcategorie.category_name %></td>
-          <td><%= link_to "show Product",user_product_path(subcategorie),class:"btn btn-success btn-sm" %></td>
+          <td><%= link_to "show Product",user_product_path(subcategorie),class:"btn btn-primary btn-sm" %></td>
         </tr>
       <%end%>
     <%end%>

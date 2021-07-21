@@ -2,15 +2,13 @@ Rails.application.routes.draw do
 
   namespace :user do
     resources :categories ,:products , :carts ,:orders
-    get "add_to_cart[:id]" ,to: "carts#add_to_cart", as: 'add_to_cart'
-    get "remove_from_cart" ,to: "carts#remove_from_cart", as: 'remove_from_cart'
-    post "add_quantity_to_cart" ,to: "carts#add_quantity", as: 'add_quantity_to_cart'
+    get "add_to_cart/:id" ,to: "carts#add_to_cart", as: 'add_to_cart'
+    delete "remove_from_cart" ,to: "carts#remove_from_cart"
+    post "add_quantity", to: "carts#add_quantity"
     get "order_place", to: "orders#order_place", as: 'order_place'
     get "order_history", to: "orders#order_history", as: 'order_history'
-    get "delete_order", to: "orders#delete_order" ,as: 'delete_order'
+    get "cancel_payment", to: "orders#cancel_payment" ,as: 'cancel_payment'
   end 
-  
-  resources :charges 
 
   namespace :admin do
     resources :users , :categories 

@@ -1,11 +1,11 @@
-  class User::OrdersController < ApplicationController
+  class User::OrdersController < ApplicationController 
   before_action :authenticate_user!
   before_action :get_order ,only: [:edit,:update]
 
-  Stripe.api_key = 'sk_test_51J9oJASBnEsdstJlBPd81H1g5zqBHfScC8yix2SSUqPDzYTsTmP0IfDxlOJocQTYPgeh6jlPbfuVJGEkkeTUq4ie001Tnr610x'
-
+  Stripe.api_key=Rails.application.credentials.Stripe_api_key
+  
   def index
-    @orders = current_user.orders    
+    @orders = current_user.orders.page(params[:page]).per(6)    
   end
 
   def new
@@ -23,8 +23,10 @@
     @order = Order.new(order_params)
     @order.user_id = current_user.id
     if @order.save
+      #OrderMailer.with(user:current_user).order_created.deliver_later
       @cart = Cart.find(params[:order][:cart_id]).update(order_id: @order.id)
-      payment(params,@order.id)
+      session = Order.payment(params,@order.id,request.base_url)
+      redirect_to session.url, status: 303
     else
       @total = params[:order][:total]
       @cart = Cart.find(params[:order][:cart_id])
@@ -47,12 +49,16 @@
   end
 
   def update
-    byebug
     if @order.update(order_params)
-      payment(params,@order.id)
+      #OrderMailer.with(mail:@order.email).order_created.deliver_later
+      session = Order.payment(params,@order.id,request.base_url)
+      redirect_to session.url, status: 303
     else
       render :edit
     end
+  end
+
+  def cancel_payment
   end
 
   private
@@ -61,29 +67,9 @@
     params.require(:order).permit(:name, :address, :email, :number, :total, :status)
   end
 
-  def payment(params,order_id)
-      session = Stripe::Checkout::Session.create({
-                                                   payment_method_types: ['card'],
-                                                   metadata: { cart_id: params[:order][:cart_id],order_id:order_id},
-                                                   line_items: [{
-                                                     price_data: {
-                                                       currency: 'inr',
-                                                       unit_amount: (params[:order][:total].to_f * 100).to_i
-                                                     },
-                                                     quantity: 1
-                                                   }],
-                                                   mode: 'payment',
-                                                   # These placeholder URLs will be replaced in a following step.
-                                                   success_url: "#{request.base_url}/user/order_place?session_id={CHECKOUT_SESSION_ID}",
-                                                   cancel_url: "#{request.base_url}/user/delete_order?order_id=@order.id"
-                                                   })
-      redirect_to session.url, status: 303
-  end
-
   def get_order
     @order=Order.find(params[:id])
   end
 
 end
-
 

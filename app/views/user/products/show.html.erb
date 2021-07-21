@@ -1,24 +1,35 @@
 
 <% if @category.products.present? %>
-<div class="container">
-  <div class="row align-items-start">
-    <%@category.products.each do |product|%>
-    <div class="col-sm" >
-      <div class="container" style="background-color: lightblue;">
-      <ul>
-          <%= image_tag(product.picture_url, :width => 250, :height => 250 ,:radius => 10)%>
-          <br>
-          <br>
-          <h5>NAME :- <mark><%= product.name %></mark></h5>
-          <h5>ABOUT :- <mark><%= product.about %></mark></h5>
-          <h5>Price :- <mark><%= product.price %> /-</mark></h5>
-          <%= link_to "ADD To CART",user_add_to_cart_path(product),class:"btn btn-primary btn-sm"%>
-      </ul>
+<div class="container mb-5 mt-5 container">
+  <div class="row">
+  <%@category.products.each do |product|%>
+    <div class="col-md-4">
+      <div class="card-mt-3 card">
+        <div class="product-1 align-items-center p-2 text-center">     
+            <%= image_tag(product.picture_url, :width => 200, :height => 200 ,:radius => 10)%>
+            <div class="mt-3 info">
+              <span class="text1 d-block"><%= product.name %></span>
+
+              <span class="text1"><%= (product.about) %></span>              
+            </div>
+            <div class="cost mt-3 text-dark">
+              <span><%= number_to_currency(product.price, unit: "₹ ") %></span>
+            <div class="star align-items-center">
+              <span class="fa fa-star">&#9733;</span>
+              <span class="fa fa-star">&#9733;</span>
+              <span class="fa fa-star">&#9733;</span>
+              <span class="fa fa-star">&#9733;</span>
+              <span class="fa fa-star">&#9734;</span>
+            </div>
+            </div>
+        </div> 
+        <div class="p-3 text-center text-white mt-3 cursor cart">
+            <span class="text-uppercase"><%= link_to "ADD TO CART",user_add_to_cart_path(product),style:"color:white;"%></span></div>
       </div>
     </div>
     <%end%>
   </div>
-</div>
+</div> 
 <%else%>
 <h1>NO product listed</h1>
 <%end%>

@@ -1,7 +1,7 @@
 <center>
-<h5><mark>Order Details</mark></h5>
+<h5>Order Details</h5>
 </center>
-<table class="table table-bordered">
+<table class="table table-bordered table-striped">
   <thead>
       <tr>
         <th scope="col">Product Name</th>
@@ -13,18 +13,18 @@
   <% @cart.line_items.each do |lineitem |%>  
     <tbody>
       <tr>
-        <td><mark><%= lineitem.product.name %></td>
-        <td><mark><%= lineitem.quantity %></td>
-        <td><mark><%= lineitem.price %>/-</td>
-        <td><mark><%= lineitem.price*lineitem.quantity %>/-</td>
+        <td><%= lineitem.product.name %></td>
+        <td><%= lineitem.quantity %></td>
+        <td><%= lineitem.price %>/-</td>
+        <td><%= lineitem.price*lineitem.quantity %>/-</td>
       </tr>
   </tbody>
   <%end%>
   </table>
   <center>
-  <h5><mark  style="background-color:gray;">Delivery Details</mark></h5>
+  <h5>Delivery Details</h5>
   </center>
-  <table class="table table-bordered table-striped table-dark">
+  <table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th scope="col">Name</th>
@@ -39,14 +39,14 @@
       </thead>
       <tbody>
       <tr>
-          <td><mark><%= @order.name %></td>
-          <td><mark><%= @order.email %></td>
-          <td><mark><%= @order.number %></td>
-          <td><mark><%= @order.address %></td>
-          <td><mark><%= @order.total %>/-</td>
-          <td><mark><%= @order.transection_id %></td>
-          <td><mark><%= @order.created_at.localtime %></td>
-          <td><mark><%= @order.status %></td>
+          <td><%= @order.name %></td>
+          <td><%= @order.email %></td>
+          <td><%= @order.number %></td>
+          <td><%= @order.address %></td>
+          <td><%= @order.total %>/-</td>
+          <td><%= @order.transection_id %></td>
+          <td><%= @order.created_at.localtime %></td>
+          <td><%= @order.status %></td>
       </tr>
       </tbody>
   </table>

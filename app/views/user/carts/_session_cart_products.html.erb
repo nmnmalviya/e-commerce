@@ -1,1 +1,61 @@
-<%= products %>
+<% unless products.blank? %>
+<div class="small-container cart-page">
+  <center>
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Price</th>
+  </tr>
+  <% sum=0 %>
+  <% products.each do |product| %>
+  <% sum+=product.price*cart[product.id.to_s]["quantity"].to_i %>
+  <tr id="product<%=product.id%>">
+    <td>
+      <div class="cart-info">
+        <%= image_tag(product.picture_url, :width => 150, :height => 150 ,:radius => 10)%>
+        <div>
+          <p><%= product.name %></p>
+          <p><%= product.about %></p>
+          <small>price:<%= product.price %></small>
+          <p >
+            <%= link_to "Remove",user_remove_from_cart_path(product:product.id),method: :delete,class:"btn btn-primary btn-sm",data: { confirm: "Are you sure?"},remote:true%></p>
+        </div>
+      </div>
+    </td>
+    <td>        
+        <%= form_with url:user_add_quantity_path,local: false do |form| %>
+          <p>
+            <%= form.hidden_field :product_id ,value:product.id %>
+            <%= form.number_field :quantity ,min: 1, max: 10,:style => "width:50px",name:"quantity#{product.id}",value: cart[product.id.to_s]["quantity"] %>
+          <p>
+            <%= form.submit "ADD QUANTITY", class:"btn btn-secondary btn-sm"%>
+          </p></td>
+          <%end%>
+    <td id="price<%=product.id%>"><%= number_to_currency(product.price*cart[product.id.to_s]["quantity"].to_i,unit: "₹")%></td>
+  <%end%>
+  </tr>
+</table>
+  <div class="total-price">
+    <table>
+      <tr>
+        <td>Total</td>
+        <td id="total"><%=number_to_currency(sum,unit: "₹")%> </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><%= link_to "Buy Now",user_orders_path(),class:"btn btn-secondary btn-sm"%></td>
+      </tr>
+    </table>  
+  </div>  
+</div>
+<%else%>
+<center>
+  <h1>No Products Added</h1>
+</center>
+<%end%>
+
+
+
+
+  

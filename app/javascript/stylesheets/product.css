@@ -1,3 +1,6 @@
+.nav-link{
+	color: white !important;
+}
 
 .container{
 	margin-top: 10px !important;
@@ -25,7 +28,7 @@
 }
 
 .cart{
-	background-color: gray;
+	background-color: #333333;
 }
 
 .cart:hover{
@@ -42,4 +45,45 @@
 	
 	font-size: 21px;
 	color: #black;	
+}
+
+
+.cart-page{
+	margin: 20px auto !important;
+	margin-left:10px;
+}
+
+table{
+	width: 94%;
+	border-collapse: collapse;
+	margin-right: 100px;
+}
+
+.cart-info{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+th{
+	padding: 5px;
+	background-color: gray;
+}
+
+td{
+	padding: 10px 5px;
+}
+
+.total-price{
+	display: flex;
+	justify-content: flex-end;
+}
+
+.total-price table{
+	border-top: 3px solid black;
+	width: 95%;
+	max-width: 350px;
+}
+
+td:last-child{
+	text-align: right;
 }

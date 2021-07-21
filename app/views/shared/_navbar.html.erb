@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color:lightslategrey;">
   <div class="container-fluid">
-     <a class="navbar-brand" href="http://localhost:3000/">Shopping App</a>
+     <a class="navbar-brand" style="color:white;"href="http://localhost:3000/">Shopping App</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -17,7 +17,7 @@
           </li>          
 
           <li class="nav-item">
-            <%=link_to "Add category", admin_categories_path,class:"nav-link" %>
+            <%=link_to "Add Category", admin_categories_path,class:"nav-link" %>
           </li>
           
           <li class="nav-item">
@@ -29,13 +29,13 @@
           </li>
 
           <li class="nav-item">
-            <%=link_to "Sign OUT",destroy_user_session_path,method: :delete ,class:"nav-link" %>
+            <%=link_to "Sign Out",destroy_user_session_path,method: :delete ,class:"nav-link" %>
           </li>
 
         <%elsif current_user.has_role?(:supplier)%>
 
           <li class="nav-item">
-            <%=link_to "category", supplier_categories_path,class:"nav-link" %>
+            <%=link_to "Category", supplier_categories_path,class:"nav-link" %>
           </li>
 
           <li class="nav-item">
@@ -51,11 +51,11 @@
           </li>
 
           <li class="nav-item">
-            <%=link_to "Edit profile", edit_user_registration_path,class:"nav-link" %>
+            <%=link_to "Edit Profile", edit_user_registration_path,class:"nav-link" %>
           </li>
 
           <li class="nav-item">
-            <%=link_to "Sign OUT",destroy_user_session_path,method: :delete ,class:"nav-link" %>
+            <%=link_to "Sign Out",destroy_user_session_path,method: :delete ,class:"nav-link" %>
           </li>
         
         <%else%>
@@ -73,12 +73,12 @@
           </li>
 
           <li class="nav-item">
-            <%=link_to "Edit profile", edit_user_registration_path,class:"nav-link" %>
+            <%=link_to "Edit Profile", edit_user_registration_path,class:"nav-link" %>
           </li>
 
 
           <li class="nav-item">
-            <%=link_to "Sign OUT",destroy_user_session_path,method: :delete ,class:"nav-link" %>
+            <%=link_to "Sign Out",destroy_user_session_path,method: :delete ,class:"nav-link" %>
           </li>
 
         <%end%>
@@ -95,14 +95,14 @@
           </li>
 
           <li class="nav-item">
-          <%=link_to "Sign IN",new_user_session_path,class:"nav-link" %>
+          <%=link_to "Sign In",new_user_session_path,class:"nav-link" %>
           </li>
 
         <% end %>
     </ul>
         <%= search_form_for  Product.ransack,url:root_path,class:"form-inline my-2 my-lg-0 d-flex" do |f| %>
         <%= f.search_field :name_cont ,placeholder:"Product Name",class:"form-control mr-sm-2"%>
-        <%= f.submit class:"btn btn-outline-success my-2 my-sm-0"%>
+        <%= f.submit class:"btn btn-success my-2 my-sm-0"%>
         <%end%>
     </div>
   </div>

@@ -1,10 +1,14 @@
 class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
-
     if session[:cart]
         @cart=resource.carts.find_or_create_by!(status: 'unorderd')
         session[:cart].each do |key,value|
-          @lineitem=LineItem.create(cart_id:@cart.id,quantity:value["quantity"].to_f,price:value["price"].to_i,product_id:key)
+          if @lineitem=LineItem.where(product_id:key,cart_id:@cart.id).first
+            @lineitem.quantity+=1
+            @lineitem.save
+          else
+            @lineitem=LineItem.create(cart_id:@cart.id,quantity:value["quantity"].to_i,price:value["price"].to_f,product_id:key)
+          end
         end
         session.delete(:cart)
     end

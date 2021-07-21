@@ -14,4 +14,7 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+import JQuery from 'jquery';
+window.$ = window.JQuery = JQuery;
+
 import "../stylesheets/product.css"

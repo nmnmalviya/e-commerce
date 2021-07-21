@@ -3,7 +3,7 @@ class Supplier::ProductsController < ApplicationController
   before_action :authorize_supplier
 
   def index
-    @products=current_user.products
+    @products=current_user.products.page(params[:page]).per(6)
   end
 
   def show
@@ -53,5 +53,4 @@ class Supplier::ProductsController < ApplicationController
     def authorize_supplier
     redirect_to root_path unless current_user.has_role?(:supplier)
     end
-
 end
