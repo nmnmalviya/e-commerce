@@ -1,24 +1,27 @@
 <center>
-<table class="table">
-	 <thead class="table-light">
+<h2>ADD SUBACTEGORY</h2>
+  <%= render 'form_subcategory', subcategory: @subcategory, parent_id: @category.id%>
+</center>
+<table class="table table-striped table-hover">
+   <thead>
     <tr>
-    	<th></th>
-      <th>NAME</th>
-	    <th>Action</th>
-      <th colspan="3"></th>
+      <th scope="col"></th>
+      <th scope="col">NAME</th>
+      <th scope="col">Action</th>
+      <th scope="col"></th>
     </tr>
    </thead>
 <tbody>
     <% unless @category.parent_id.present? %>
-    <tr style="background: lightblue;">
+    <tr>
           <td>CATEGORY</td>
           <td><%=@category.category_name %></td>
           <td></td>
           <td></td>
-	</tr>
+  </tr>
 </tbody>
 <tbody>
-	<tr>
+  <tr>
           <% @category.subcategories.each do |subcategorie| %>
           <td>SUBCATEGORY</td>
           <td><%=subcategorie.category_name %></td>
@@ -26,12 +29,8 @@
           <td><%= link_to "delete" ,admin_category_path(subcategorie), method: :delete,class:"btn btn-danger btn-sm",data: { confirm: "Are you sure?" }%></td>
     </tr>
 </tbody>
-    	  <%end%>
+        <%end%>
       </tr>
-	<%end%>
+  <%end%>
 </tbody>
 </table>
-
-<h5>ADD SUBACTEGORY</h5>
-	<%= render 'form_subcategory', subcategory: @subcategory, parent_id: @category.id%>
-  </center>

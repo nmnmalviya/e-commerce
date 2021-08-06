@@ -1,19 +1,18 @@
 <% unless carts.blank? %>
 <%carts.each do |cart|%>
-<% if cart.line_items.present? and cart.status=='unorderd'%>
 <div class="small-container cart-page">
   <center>
-<table>
+<table class="cart-table">
   <tr>
-    <th>Product</th>
-    <th>Quantity</th>
-    <th>Price</th>
+    <th class="cart-th">Product</th>
+    <th class="cart-th">Quantity</th>
+    <th class="cart-th">Price</th>
   </tr>
   <% sum=0%>
   <% cart.line_items.each do |lineitem |%>
   <% sum+=lineitem.price*lineitem.quantity %>
   <tr id="cart_product<%=lineitem.id%>">
-    <td>
+    <td class="cart-td">
       <div class="cart-info">
         <%= image_tag(lineitem.product.picture_url, :width => 150, :height => 150 ,:radius => 10)%>
         <div>
@@ -25,7 +24,7 @@
         </div>
       </div>
     </td>
-    <td>        
+    <td class="cart-td">
         <%= form_with url:user_add_quantity_path,local: false do |form| %>
           <p>
             <%= form.hidden_field :id ,value:lineitem.id %>
@@ -37,41 +36,34 @@
           <%= form.submit "ADD QUANTITY", class:"btn btn-secondary btn-sm"%>
           </p>
         <% end %>
-    <td id="price<%=lineitem.id%>"><%= number_to_currency(lineitem.price*lineitem.quantity,unit: "₹ ") %></td>
+    </td>
+    <td class="total" id="price<%=lineitem.id%>"><%= number_to_currency(lineitem.price*lineitem.quantity,unit: "₹") %></td>
   <%end%>
   </tr>
 </table>
   <div class="total-price">
-    <table>
+    <table class="cart-table">
       <tr>
-        <td>Total</td>
-        <td id="total"><%=number_to_currency(sum,unit: "₹")%></td>
+        <td class="cart-td">Total</td>
+        <td class="total" id="total"><%=number_to_currency(sum,unit: "₹")%></td>
       </tr>
       <tr>
-      <td></td>
-      <td align="right">
-        <% if cart.order %>  
-          <%= link_to "BUY NOW",edit_user_order_path(id:cart.order.id,total:sum,cart_id:cart.id),class:"btn btn-secondary btn-sm",id:"link"%>
+        <td></td>
+        <td align="right">
+          <% if cart.order %>
+            <%= link_to "BUY NOW",edit_user_order_path(id:cart.order.id,total:sum,cart_id:cart.id),class:"btn btn-secondary btn-sm",id:"link"%>
           <% else %>
-          <%= link_to "Buy Now",new_user_order_path(cart_id:cart.id,total:sum),class:"btn btn-secondary btn-sm",id:"link"%>
-        <%end%>
-      </td>
-    </tr>
-    </table>  
-  </div>  
+            <%= link_to "Buy Now",new_user_order_path(cart_id:cart.id,total:sum),class:"btn btn-secondary btn-sm",id:"link"%>
+          <%end%>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+  <hr>
 </div>
+<%= link_to "Clear Cart" ,user_cart_path(cart),method: :delete,class:"btn btn-secondary",data:{ confirm: "Are you sure?" }%>
+<%end%>
 <%else%>
-<h1>No Products</h1>
+<h1>No Product Listed</h1>
 <%end%>
-<%end%>
-<%end%>
-
-
-
-
-
-  
-
-
-
-

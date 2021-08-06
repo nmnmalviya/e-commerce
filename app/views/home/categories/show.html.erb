@@ -1,0 +1,29 @@
+<center>
+<h1>Subategory</h1>
+</center>
+<table class="table">
+   <thead class="table-light">
+    <tr>
+      <th>Type</th>
+      <th>NAME</th>
+      <th style="text-align:right;">Action</th>
+    </tr>
+   </thead>
+<tbody> 
+  <% if @category.subcategories.present? %>        
+      <% @category.subcategories.each do |subcategorie| %>
+        <tr>
+          <td>SUBCATEGORY</td>
+          <td><%=subcategorie.category_name %></td>
+          <td><%= link_to "show Product",product_path(subcategorie),class:"btn btn-primary btn-sm" %></td>
+        </tr>
+      <%end%>
+  <%else%>
+      <tr>
+          <td>CATEGORY</td>
+          <td><%=@category.category_name %></td>
+          <td><%= link_to "show Product",product_path(@category),class:"btn btn-primary btn-sm" %></td>
+      </tr>
+  <%end%>
+</tbody>
+</table>

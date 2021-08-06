@@ -1,4 +1,8 @@
-<%= form_with model: [:admin, subcategory] do |form| %>
+<div id="box">
+  <button type="button" class="btn btn-secondary" id="button">
+  Add Subcategory
+</button>
+<%= form_with model: [:admin, subcategory],url:admin_create_subcategory_path,id:"form" do |form| %>
   <div>
   <%= form.hidden_field :parent_id, value: "#{parent_id}" %>
   </div>
@@ -13,11 +17,19 @@
 </ul>
 <%end%>
   <div>
-    <%= form.label :Add_category %><br>
+    <%= form.label :Add_category ,class:"name"%><br>
     <%= form.text_field :category_name %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Create subcategory" %>
   </div>
 <% end %>
+
+
+<script>
+  $("#button").click(function() {  
+  $("#box form").toggle("slow");
+  return false;
+});
+</script>

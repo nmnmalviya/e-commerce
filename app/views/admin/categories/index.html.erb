@@ -1,20 +1,19 @@
 <center>
 <h1>Category</h1>
-<%= link_to "ADD CATEGORY",new_admin_category_path,class:"btn btn-success btn-sm"%>
+<%= render 'form' ,category:@category %>
 </center>
 <table class="table">
-	 <thead class="table-light">
+   <thead class="table-light">
     <tr>
       <th>NAME</th>
-      <th></th>
-	    <th>Action</th>
-      <th colspan="3"></th>
+      <th colspan=2 >Action</th>
+      <th>Show</th>
     </tr>
    </thead>
 <tbody>
 <% @categorys.each do |category|%>
     <% unless category.parent_id.present? %>
-      <tr style="background: gray;">
+      <tr>
           <td><%=category.category_name %></td>
           <td><%= link_to "EDIT" ,edit_admin_category_path(category),class:"btn btn-primary btn-sm"%></td>
           <td><%= link_to "delete" ,admin_category_path(category), method: :delete,class:"btn btn-danger btn-sm"%></td>

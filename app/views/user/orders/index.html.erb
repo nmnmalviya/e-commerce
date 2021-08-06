@@ -20,7 +20,8 @@
       <td><%= order.created_at.localtime %></td>
       <td><%= order.status %></td>
       <%if order.status=="awaiting_payment"%>
-        <td><%= link_to "Retry" ,user_carts_path(),class:"btn btn-primary"%></td>
+        <td><%= link_to "Retry" ,user_carts_path(),class:"btn btn-primary"%>
+        <%= link_to "Delete" ,user_order_path(order),method: :delete,class:"btn btn-secondary",data:{ confirm: "Are you sure?" }%></td>
       <%else%>
         <td><%= link_to "SHOW" ,user_order_path(order),class:"btn btn-primary"%></td>
       <%end%>

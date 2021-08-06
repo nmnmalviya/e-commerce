@@ -1,17 +1,17 @@
 <% unless products.blank? %>
 <div class="small-container cart-page">
   <center>
-<table>
+<table class="cart-table">
   <tr>
-    <th>Product</th>
-    <th>Quantity</th>
-    <th>Price</th>
+    <th class="cart-th">Product</th>
+    <th class="cart-th">Quantity</th>
+    <th class="cart-th">Price</th>
   </tr>
   <% sum=0 %>
   <% products.each do |product| %>
   <% sum+=product.price*cart[product.id.to_s]["quantity"].to_i %>
   <tr id="product<%=product.id%>">
-    <td>
+    <td class="cart-td">
       <div class="cart-info">
         <%= image_tag(product.picture_url, :width => 150, :height => 150 ,:radius => 10)%>
         <div>
@@ -23,7 +23,7 @@
         </div>
       </div>
     </td>
-    <td>        
+    <td class="cart-td">        
         <%= form_with url:user_add_quantity_path,local: false do |form| %>
           <p>
             <%= form.hidden_field :product_id ,value:product.id %>
@@ -32,23 +32,24 @@
             <%= form.submit "ADD QUANTITY", class:"btn btn-secondary btn-sm"%>
           </p></td>
           <%end%>
-    <td id="price<%=product.id%>"><%= number_to_currency(product.price*cart[product.id.to_s]["quantity"].to_i,unit: "₹")%></td>
+    <td class="total" id="price<%=product.id%>"><%= number_to_currency(product.price*cart[product.id.to_s]["quantity"].to_i,unit: "₹")%></td>
   <%end%>
   </tr>
 </table>
   <div class="total-price">
-    <table>
+    <table class="cart-table">
       <tr>
-        <td>Total</td>
-        <td id="total"><%=number_to_currency(sum,unit: "₹")%> </td>
+        <td class="cart-td">Total</td>
+        <td class="total" id="total"><%=number_to_currency(sum,unit: "₹")%> </td>
       </tr>
       <tr>
         <td></td>
-        <td><%= link_to "Buy Now",user_orders_path(),class:"btn btn-secondary btn-sm"%></td>
+        <td style="text-align:right;"><%= link_to "Buy Now",user_orders_path(),class:"btn btn-secondary btn-sm"%></td>
       </tr>
     </table>  
   </div>  
 </div>
+<%= link_to "Clear Cart" ,user_cart_path(:id),method: :delete,class:"btn btn-primary",data:{ confirm: "Are you sure?" }%>
 <%else%>
 <center>
   <h1>No Products Added</h1>

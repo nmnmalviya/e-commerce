@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_14_100544) do
+ActiveRecord::Schema.define(version: 2021_08_04_075820) do
 
   create_table "carts", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -64,8 +64,30 @@ ActiveRecord::Schema.define(version: 2021_07_14_100544) do
     t.float "price"
     t.integer "user_id"
     t.string "picture"
+    t.integer "stock"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["user_id"], name: "index_products_on_user_id"
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.integer "rating"
+    t.integer "user_id", null: false
+    t.integer "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_ratings_on_product_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string "name"
+    t.text "body"
+    t.integer "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
+    t.index ["product_id"], name: "index_reviews_on_product_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -110,4 +132,8 @@ ActiveRecord::Schema.define(version: 2021_07_14_100544) do
   add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "users"
+  add_foreign_key "ratings", "products"
+  add_foreign_key "ratings", "users"
+  add_foreign_key "reviews", "products"
+  add_foreign_key "reviews", "users"
 end

@@ -1,0 +1,57 @@
+
+<% if @products.present? %>
+<div class="container mb-5 mt-5 container">
+  <div class="row">
+  <%@products.each do |product|%>
+    <div class="col-md-4">
+      <div class="card-mt-3 card">
+        <div class="product-1 align-items-center p-2 text-center">     
+            <%= image_tag(product.picture_url, :width => 200, :height => 200 ,:radius => 10)%>
+            <div class="mt-3 info">
+              <span class="text1 d-block"><%= product.name %></span>
+
+              <span class="text1"><%= (product.about) %></span>              
+            </div>
+            <!-- ratings !-->
+            <div class="cost mt-3 text-dark">
+              <span><%= number_to_currency(product.price, unit: "₹ ") %></span>
+              <% if current_user&.ratings&.where(product_id:product.id).present? %> 
+                <a class="add_to_cart" href="http://localhost:3000/home/ratings/<%=product.ratings.where(user_id:current_user.id).first.id%>/edit?product_id=<%=product.id%>" title="Add rating">
+              <%else%>
+                <a class="add_to_cart" href="http://localhost:3000/home/ratings/new?id=<%=product.id%>" title="Add rating">
+              <%end%>
+              <%  count=product.ratings.count %>
+              <% sum=product.ratings.pluck(:rating).sum %>
+              <div class="star align-items-center">
+                <% for rating in 1..5%>
+                  <% if count==0 || sum==0 %>
+                    <span class="fa fa-star">&#9734;</span>
+                  <% elsif rating <=sum/count %>
+                    <span class="fa fa-star">&#9733;</span>
+                  <%else%>
+                    <span class="fa fa-star">&#9734;</span>
+                  <%end%>
+                <%end%>
+              </div>
+            </div>
+                </a>
+          </div> 
+        <div class="p-3 text-center text-white mt-3 cursor cart">
+            <% if product.stock>5%>
+              <span class="text-uppercase"><%= link_to "ADD TO CART",user_add_to_cart_path(product),class:"btn btn-secondary"%>
+              </span>
+            <%else%>
+              <span class="text-uppercase" style="background-color:red; padding: 8px;">OUT OF STOCK</span>
+            <%end%>
+        </div>
+      </div>
+    </div>
+    <%end%>
+  <%= paginate @products %>
+  </div>
+</div> 
+<%else%>
+<center>
+<h1>No Product Listed</h1>
+</center>
+<%end%>

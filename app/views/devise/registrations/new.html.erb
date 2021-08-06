@@ -10,17 +10,17 @@
   </div>
 
   <div>
-  <span>Specify your Category</span>
-  <div class="form-group">
-  <%= radio_button_tag "role", true, true %>
-  <%= label_tag "customer", 'Customer' %>
-    </div>
-
-  <div class="form-group">
-  <%= radio_button_tag "role", false, false%>
-  <%= label_tag "supplier", 'Supplier' %>
-  </div>
-  </div>
+  <div>
+<strong>Specify your Category</strong>
+<div>
+<%= radio_button_tag "role", true, true,class:"role" %>
+<%= label_tag "customer", 'Customer' %>
+</div>
+<div>
+<%= radio_button_tag "role", false, false,class:"role"%>
+<%= label_tag "supplier", 'Supplier' %>
+</div>
+</div>
   
   <div class="form-group">
     <%= f.label :password %>

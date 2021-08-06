@@ -8,17 +8,23 @@ Rails.application.routes.draw do
     get "order_place", to: "orders#order_place", as: 'order_place'
     get "order_history", to: "orders#order_history", as: 'order_history'
     get "cancel_payment", to: "orders#cancel_payment" ,as: 'cancel_payment'
-  end 
+  end
+  resources :ratings
+
+  namespace :home do
+    resources :products , :categories, :ratings
+    post "create_review", to: "ratings#create_review" ,as: 'create_review'
+  end
 
   namespace :admin do
-    resources :users , :categories 
+    resources :users , :categories
+    post "create_subcategory", to: "categories#create_subcategory"
   end
- 
+
   namespace :supplier do
     resources  :categories ,:products
+    post "add_stock", to: "products#add_stock"
   end
-
-
 
   devise_for :users , :controllers => {:registrations => "registrations"}
 

@@ -1,0 +1,38 @@
+<hr>
+<h5>Review Product</h5>
+<div style="height:400px; width:470px; overflow:scroll; border: 2px solid gray;">
+  <% unless reviews.empty? %>
+  <%reviews.each do |review|%>
+    <p style="text-align: justify; background:#778899; color:white;">Name :- <%=review.name%></p>
+    <p style="text-align: justify;"><span style="color:indigo; background:whitesmoke;" >Review :- </span><%=review.body%></p>
+  <%end%>
+  <%else%>
+  <h3>Be The First To Review</h3>
+  <%end%>
+<hr>
+<div>
+<%= form_with model:Review.new ,url:home_create_review_path, id:"review_form" do |form| %>
+<div class="form-group">  
+  <%= form.hidden_field :product_id, value: "#{product.id}" %>
+    </div>
+      <div class="form-group">
+        <%= form.label :Name ,class:"name"%><br>
+        <%= form.text_field :name , class:"form-control",style:"width:418px" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :Add_Review ,class:"name"%><br>
+        <%= form.text_area :body , class:"form-control",style:"width:418px"%>
+      </div>
+
+      <div class="form-group">
+        <%= form.submit%>
+    </div>
+  <% end %>
+  </div>
+</div>
+
+
+
+
+

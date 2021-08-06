@@ -1,3 +1,11 @@
+function numberToCurrency(total) {
+    return total.toLocaleString('en-IN', {
+                maximumFractionDigits: 2,
+                style: 'currency',
+                currency: 'INR'
+                });
+}
+
     var total=$('#total').html()
     var currency = total[0]
     total=total.substring(1)
@@ -6,15 +14,19 @@
 
     var toDelete = $("#cart_product" + <%= @cart_product.id %>);
     toDelete.remove();
-    total = (parseFloat(total) - parseFloat("<%= @cart_product.price*@cart_product.quantity %>")).toString()
-
-    $('#total').html(currency + " " + total);
-    $('#link').attr("href", "http://localhost:3000/user/orders/new?cart_id=<%=params[:cart]%>&total="+total);
+    total = (parseFloat(total) - parseFloat("<%= @cart_product.price*@cart_product.quantity %>"))
+    total = numberToCurrency(total);
+    $('#total').html(total);
+    total=total.substring(1)
+    $('#link').attr("href", "<%=request.base_url%>/user/orders/new?cart_id=<%=params[:cart]%>&total="+total);
+    
 <% else %>
 
     var toDelete = $("#product"+<%=params[:product]%>);
     toDelete.remove();
-    total = (parseFloat(total) - parseFloat("<%= @product_detail["price"]*@product_detail["quantity"].to_i %>")).toString()
-    $('#total').html(currency + " " + total);
+    total = (parseFloat(total) - parseFloat("<%= @product_detail["price"]*@product_detail["quantity"].to_i %>"))
+    total = numberToCurrency(total);
+    $('#total').html(total);
+
 <%end%>
 

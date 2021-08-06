@@ -4,6 +4,7 @@
 // that code so it'll be compiled.
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
 
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
@@ -18,3 +19,5 @@ import JQuery from 'jquery';
 window.$ = window.JQuery = JQuery;
 
 import "../stylesheets/product.css"
+
+require.context('../images', true)

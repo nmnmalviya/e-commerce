@@ -11,19 +11,21 @@
       <% if user_signed_in? %>
         <% if current_user.has_role?(:admin)%>
 
-          
+          <li class="nav-item">
+            <%= render 'shared/category_subcategory' %>
+          </li>
+
           <li class="nav-item">
             <%=link_to "User", admin_users_path,class:"nav-link" %>
-          </li>          
+          </li>
 
           <li class="nav-item">
             <%=link_to "Add Category", admin_categories_path,class:"nav-link" %>
           </li>
-          
           <li class="nav-item">
             <%=link_to "Cart",user_carts_path,class:"nav-link" %>
           </li>
-                     
+
           <li>
             <%=link_to "Order History", user_orders_path,class:"nav-link" %>
           </li>
@@ -35,7 +37,11 @@
         <%elsif current_user.has_role?(:supplier)%>
 
           <li class="nav-item">
-            <%=link_to "Category", supplier_categories_path,class:"nav-link" %>
+            <%=link_to "Dashboard", supplier_categories_path,class:"nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= render 'shared/category_subcategory' %>
           </li>
 
           <li class="nav-item">
@@ -57,17 +63,17 @@
           <li class="nav-item">
             <%=link_to "Sign Out",destroy_user_session_path,method: :delete ,class:"nav-link" %>
           </li>
-        
+
         <%else%>
 
           <li class="nav-item">
-            <%=link_to "Category",user_categories_path,class:"nav-link" %>
+            <%= render 'shared/category_subcategory' %>
           </li>
 
           <li class="nav-item">
             <%=link_to "Cart",user_carts_path,class:"nav-link" %>
           </li>
-          
+
           <li>
             <%=link_to "Order History", user_orders_path,class:"nav-link" %>
           </li>
@@ -85,7 +91,11 @@
 
 
         <% else %>
-          
+
+          <li class="nav-item">
+            <%= render 'shared/category_subcategory' %>
+          </li>
+
           <li class="nav-item">
             <%=link_to "Cart",user_carts_path,class:"nav-link" %>
           </li>

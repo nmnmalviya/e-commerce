@@ -1,0 +1,34 @@
+<% category=Category.all%>
+<div class="dropdown">
+  <a href="" class="nav-link"><span>Category</span></a>
+  <div class="dropdown-content">
+      <% category.each do |category|%>
+      <div class="dropdown-category">
+          <% unless category.parent_id.present? %>
+              <p class="dropdown-item"><%= category.category_name.capitalize%></p>
+          <% end %>
+
+          <% subcategories = category.subcategories %>  
+
+          <% if subcategories.length > 0 %>
+          <% x=1 %>
+          <div class="dropdown-subcategory">
+              <% subcategories.each do |subcategorie| %>
+                <% if x==1 %>
+                  <%x+=1%>
+                  <% if category.products.present? %>
+                    <span><%= link_to "#{category.category_name.capitalize}",home_product_path(category),class:"dropdown-item"%></span>
+                  <%end%>
+                <%end%>
+                <span><%= link_to "#{subcategorie.category_name.capitalize}",home_product_path(subcategorie),class:"dropdown-item" %></span>
+              <%end%>
+          </div>
+          <%else%>
+          <div class="dropdown-subcategory">
+                <span><%= link_to "#{category.category_name.capitalize}",home_product_path(category),class:"dropdown-item" %></span>
+          </div>
+          <% end %>
+      </div>
+      <%end%>
+  </div>
+</div>

@@ -1,7 +1,8 @@
 class User::CartsController < ApplicationController
+
   def index
     if user_signed_in?
-      @carts = current_user.carts.pending_cart
+      @carts = current_user.carts.unorderd
     else
       @products = session[:cart] ? session[:cart].keys.map { |id| Product.find(id) } : []
       @cart = session[:cart]
@@ -27,7 +28,7 @@ class User::CartsController < ApplicationController
       @cart_product_id = @cart_product.id
       @cart_product.delete
     else
-      @product_detail=session[:cart][params[:product]]
+      @product_detail = session[:cart][params[:product]]
       session[:cart].delete(params[:product])
     end
     respond_to do |format|
@@ -37,17 +38,27 @@ class User::CartsController < ApplicationController
 
   def add_quantity
     if user_signed_in?
-      @cart=Cart.find(params[:cart_id])
+      @cart = Cart.find(params[:cart_id])
       @lineitem = LineItem.find(params[:id])
-      @previous_quantity=@lineitem.quantity
-      @lineitem.update!(quantity: params["quantity"+params[:id]])
+      @previous_quantity = @lineitem.quantity
+      @lineitem.update!(quantity: params['quantity' + params[:id]])
     else
-      @previous_quantity=session[:cart][params[:product_id]].clone
-      session[:cart][params[:product_id]]['quantity'] = params["quantity"+params[:product_id]].to_i
+      @previous_quantity = session[:cart][params[:product_id]].clone
+      session[:cart][params[:product_id]]['quantity'] = params['quantity' + params[:product_id]].to_i
     end
     respond_to do |format|
-        format.js
+      format.js
     end
+  end
+
+  def destroy
+    if user_signed_in?
+      @cart = Cart.find(params[:id])
+      @cart.destroy
+    else
+      session.delete(:cart)
+    end
+    redirect_to request.referer
   end
 
   private
@@ -69,7 +80,6 @@ class User::CartsController < ApplicationController
   def session_cart
     if session[:cart].is_a?(Hash)
       if session[:cart].include?(@product.id.to_s)
-        byebug
         session[:cart][@product.id.to_s]['quantity'] += 1
       else
         session[:cart][@product.id.to_s] = { price: @product.price, quantity: 1 }

@@ -1,0 +1,164 @@
+<style>
+.slidder_image {
+  display: block;
+  outline: none;
+  border: 0;
+  max-width: 100%;
+}
+
+#swt_slider {
+  margin-top: 40px;
+}
+
+.slider,
+.slider__wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  max-height:200px;
+}
+
+.slider__wrapper {
+  overflow: hidden;
+}
+
+.slider__container {
+  position: relative;
+  padding: 0;
+  display: flex;
+  margin: 0 0 0 -100%;
+}
+
+.slider__element {
+  display: block;
+  float: left;
+  text-align: center;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+
+.slider__next,
+.slider__prev {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  right: 0;
+  top: calc(50% - 24px);
+  text-align: center;
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 48px;
+  transition: 0.3s;
+}
+
+.slider__next:hover,
+.slider__prev:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.slider__prev {
+  left: 0;
+  right: auto;
+}
+
+.buttons-section {
+  margin: 40px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+</style>
+
+<div class="slider" id="swt_slider">
+
+  <a href="#" class="slider__prev">&#x3c;</a>
+  <a href="#" class="slider__next">&#x3e;</a>
+
+  <div class="slider__wrapper">
+    <div class="slider__container">
+      <div class="slider__element">
+        <img class="slidder_image" src="https://images.unsplash.com/photo-1598084991519-c90900bc9df0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1951&q=80" alt="">
+      </div>
+      <div class="slider__element">
+        <img class="slidder_image" src="https://images.unsplash.com/photo-1592636120953-3d2b28ebfd69?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80" alt="">
+      </div>
+      <div class="slider__element">
+        <img class="slidder_image" src="https://images.unsplash.com/photo-1531986627054-7f294d095acd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80" alt="">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function init_slider(id) {
+  let wrapper = $(id).find(".slider__wrapper");
+  let container = $(wrapper).find(".slider__container");
+  let element = $(wrapper).find(".slider__element");
+  let slideCount = element.length;
+  let containerWidth = 100 * (slideCount + 1) + "%";
+
+  $(container).css({ width: containerWidth });
+  $(id).find(".slider__element:last-child").prependTo(container);
+
+  $(id)
+    .find(".slider__element")
+    .each(function () {
+      $(this).css("width", 100 / (slideCount + 1) + "%");
+    });
+
+  function moveLeft() {
+    container.animate(
+      {
+        left: +element.width()
+      },
+      400,
+      function () {
+        $(id).find(".slider__element:last-child").prependTo(container);
+        container.css("left", "");
+      }
+    );
+  }
+
+  function moveRight() {
+    container.animate(
+      {
+        left: -element.width()
+      },
+      400,
+      function () {
+        $(id).find(".slider__element:first-child").appendTo(container);
+        container.css("left", "");
+      }
+    );
+  }
+
+  $(id)
+    .find(".slider__prev")
+    .click(function (e) {
+      e.preventDefault();
+      moveLeft();
+    });
+
+  $(id)
+    .find(".slider__next")
+    .click(function (e) {
+      e.preventDefault();
+      moveRight();
+    });
+}
+
+$(document).ready(function () {
+  init_slider("#swt_slider");
+});
+
+</script>

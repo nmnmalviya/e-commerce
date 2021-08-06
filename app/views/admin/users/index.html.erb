@@ -4,8 +4,7 @@
 	  <thead class="table-light">
     <tr>
       <th>Email</th>
-      <th> </th>
-	   <th style="text-align: right;">Role</th>
+	   <th>Role</th>
     </tr>
 </thead>
 <tbody>
@@ -13,7 +12,7 @@
       <tr>
         <% unless current_user==user %>
         <td><%=user.email%></td>
-        <td><% role=user.roles.first %></td>
+        <% role=user.roles.first %>
         <td><%= role.name %></td>
         <%else%>
         <%end%>

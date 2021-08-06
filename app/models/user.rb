@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :reviews
+  has_many :ratings
   has_many :products
   has_many :carts
   has_many :orders, dependent: :destroy
@@ -9,5 +11,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   validates_presence_of :email
   validates_uniqueness_of :email
-  validates :password, length: { minimum: 8, maximum: 13 }
+  validates :password, format: {with: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)./,:multiline => true,
+    message: "must include at least one lowercase letter, one uppercase letter, and one digit"}
 end

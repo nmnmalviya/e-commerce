@@ -14,34 +14,42 @@
 
 
   <h4>ADD <%=category.category_name%> PRODUCTS</h4><br>
-  <p>
+  <div class="form-group">
     <%= form.hidden_field(:picture_cache)%>
     <%= form.label :Image %><br>
       <%= form.file_field(:picture)%>
-  </p>
-  
+  </div>
+
   <p>
     <%= form.hidden_field :category_name, value: "#{category.category_name}"%>
     <%= form.hidden_field :category_id, value: category.id%>
   </p>
 
-  <p>
+  <div class="form-group">
     <%= form.label :product_name %><br>
-    <%= form.text_field :name %>
-  </p>
-  
-  <p>
+    <%= form.text_field :name ,class:"form-control", style:"width:300px"%>
+  </div>
+
+  <div class="form-group">
     <%= form.label :about %><br>
-    <%= form.text_area :about %>
-  </p>
+    <%= form.text_area :about ,class:"form-control", style:"width:300px" %>
+  </div>
 
-  <p>
+  <div class="form-group">
+    <%= form.label :stock %><br>
+    <%= form.number_field :stock ,class:"form-control",style:"width:300px"%>
+  </div>
+
+  <div class="form-group">
     <%= form.label :price %><br>
-    <%= form.number_field :price %>
-  </p>
+    <%= form.number_field :price ,step: :any,class:"form-control", style:"width:300px"%>
+  </div>
+  <br>
 
-  <p>
-    <%= form.submit %>
-  </p>
+  <div class="form-group">
+    <%= form.submit class:"btn btn-primary"%>
+  </div>
+
 </div>
+
 <% end %>

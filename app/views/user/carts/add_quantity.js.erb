@@ -1,26 +1,39 @@
+function numberToCurrency(total) {
+	return total.toLocaleString('en-IN', {
+    			maximumFractionDigits: 2,
+    			style: 'currency',
+    			currency: 'INR'
+				});
+}
+
 	var total=$('#total').html()
     var currency = total[0]
     total=total.substring(1)
     total=total.replaceAll(',','')
+    
 <% if user_signed_in? %>
 	$('input[name="quantity<%=params[:id]%>"]').val("<%= @lineitem.quantity %>");
-	$('#price<%=@lineitem.id%>').html("<%= number_to_currency(@lineitem.quantity*@lineitem.price,unit: "₹ ") %>");
+	$('#price<%=@lineitem.id%>').html("<%= number_to_currency(@lineitem.quantity*@lineitem.price,unit: "₹") %>");
 
 
 	<% if @previous_quantity>@lineitem.quantity %>
 		<% quantity=@previous_quantity-@lineitem.quantity %>
-    	total = (parseFloat(total) - parseFloat("<%= quantity*@lineitem.price %>")).toString()
-    	$('#total').html(currency + " " + total);
+    	total = (parseFloat(total) - parseFloat("<%= quantity*@lineitem.price %>"))
+    	total = numberToCurrency(total);
+    	$('#total').html(total);
 	<%else%>
 		<% quantity=@lineitem.quantity-@previous_quantity %>
-		total = (parseFloat(total) + parseFloat("<%= quantity*@lineitem.price %>")).toString()
-		$('#total').html(currency + " " + total+".00");
+		total = (parseFloat(total) + parseFloat("<%= quantity*@lineitem.price %>"))
+		total = numberToCurrency(total);
+    	$('#total').html(total);
 	<%end%>
 
-	<% if @cart.order %>
-		$('#link').attr("href", "http://localhost:3000/user/orders/<%= @cart.order.id %>/edit?cart_id=<%=params[:cart_id]%>&total="+total);
+	total=total.substring(1)
+
+	<%if @cart.order%>
+		$('#link').attr("href", "<%=request.base_url%>/user/orders/<%= @cart.order.id %>/edit?cart_id=<%=params[:cart_id]%>&total="+total);
 	<%else%>
-		$('#link').attr("href", "http://localhost:3000/user/orders/new?cart_id=<%=params[:cart_id]%>&total="+total);
+		$('#link').attr("href", "<%=request.base_url%>/user/orders/new?cart_id=<%=params[:cart_id]%>&total="+total);
 	<%end%>
 
 <%else%>
@@ -29,13 +42,14 @@
 
 	<% if @previous_quantity["quantity"]>session[:cart][params[:product_id]]["quantity"] %>
 		<% quantity=@previous_quantity["quantity"]-session[:cart][params[:product_id]]["quantity"] %>
-		total = (parseFloat(total) - parseFloat("<%= quantity*session[:cart][params[:product_id]]["price"] %>")).toString()
-    	$('#total').html(currency + " " + total);
+		total = (parseFloat(total) - parseFloat("<%= quantity*session[:cart][params[:product_id]]["price"] %>"))
+    	total = numberToCurrency(total);
+    	$('#total').html(total);
     <%else%>
     	<% quantity=session[:cart][params[:product_id]]["quantity"]-@previous_quantity["quantity"] %>
 
-		total = (parseFloat(total) + parseFloat("<%= quantity*session[:cart][params[:product_id]]["price"] %>")).toString()
-    	$('#total').html(currency + " " + total);
+		total = (parseFloat(total) + parseFloat("<%= quantity*session[:cart][params[:product_id]]["price"] %>"))
+		total = numberToCurrency(total);
+    	$('#total').html(total);
     <%end%>	
 <%end%>
-
