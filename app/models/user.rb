@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   rolify
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable, :confirmable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   validates_presence_of :email

@@ -23,7 +23,7 @@ class User::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.user_id = current_user.id
     if @order.save
-      # OrderMailer.with(user:current_user).order_created.deliver_later
+      OrderMailer.with(user:@order.name,mail:@order.email).order_created.deliver_later
       @cart = Cart.find(params[:order][:cart_id]).update(order_id: @order.id)
       session = Order.payment(params, @order.id, request.base_url)
       redirect_to session.url, status: 303
@@ -49,7 +49,7 @@ class User::OrdersController < ApplicationController
 
   def update
     if @order.update(order_params)
-      # OrderMailer.with(mail:@order.email).order_created.deliver_later
+      OrderMailer.with(mail:@order.email,user:@order.name).order_created.deliver_later
       session = Order.payment(params, @order.id, request.base_url)
       redirect_to session.url, status: 303
     else

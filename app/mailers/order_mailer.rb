@@ -7,6 +7,7 @@ class OrderMailer < ApplicationMailer
   #
   def order_created
     @mail=params[:mail]
+    @user=params[:user]
     @greeting = "Hi"
 
     mail to: @mail,subject:"order place"

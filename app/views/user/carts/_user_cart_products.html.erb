@@ -51,9 +51,9 @@
         <td></td>
         <td align="right">
           <% if cart.order %>
-            <%= link_to "BUY NOW",edit_user_order_path(id:cart.order.id,total:sum,cart_id:cart.id),class:"btn btn-secondary btn-sm",id:"link"%>
+            <%= link_to "BUY NOW",edit_user_order_path(id:cart.order.id,total:sum,cart_id:cart.id),class:"btn btn-success btn-sm",id:"link"%>
           <% else %>
-            <%= link_to "Buy Now",new_user_order_path(cart_id:cart.id,total:sum),class:"btn btn-secondary btn-sm",id:"link"%>
+            <%= link_to "Buy Now",new_user_order_path(cart_id:cart.id,total:sum),class:"btn btn-success btn-sm",id:"link"%>
           <%end%>
         </td>
       </tr>
