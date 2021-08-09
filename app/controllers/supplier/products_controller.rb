@@ -1,15 +1,17 @@
 class Supplier::ProductsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_supplier
-  before_action :set_product, except: %i[index create]
+  before_action :set_product, except: %i[index create new]
 
   def index
     @products = current_user.products.page(params[:page]).per(6)
   end
 
-  def show; end
+  def show
+  end
 
   def new
+    @category=Category.find(params[:id])
     @product = Product.new
   end
 
@@ -24,7 +26,8 @@ class Supplier::ProductsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @product.update(product_params)

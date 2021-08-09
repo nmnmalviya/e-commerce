@@ -11,19 +11,17 @@
   <%end%>
 </ul>
 <%end%>
+<h4>ADD <%=category.category_name%> PRODUCTS</h4><br>
 
-
-  <h4>ADD <%=category.category_name%> PRODUCTS</h4><br>
   <div class="form-group">
     <%= form.hidden_field(:picture_cache)%>
     <%= form.label :Image %><br>
       <%= form.file_field(:picture)%>
   </div>
-
-  <p>
+  <div>
     <%= form.hidden_field :category_name, value: "#{category.category_name}"%>
     <%= form.hidden_field :category_id, value: category.id%>
-  </p>
+  </div>
 
   <div class="form-group">
     <%= form.label :product_name %><br>

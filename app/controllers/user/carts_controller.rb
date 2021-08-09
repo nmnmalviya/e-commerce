@@ -2,7 +2,7 @@ class User::CartsController < ApplicationController
 
   def index
     if user_signed_in?
-      @carts = current_user.carts.unorderd
+      @carts = current_user.carts.unorderd.first
     else
       @products = session[:cart] ? session[:cart].keys.map { |id| Product.find(id) } : []
       @cart = session[:cart]
@@ -27,6 +27,7 @@ class User::CartsController < ApplicationController
       @cart_product = LineItem.where(cart_id: params[:cart], product_id: params[:product]).first
       @cart_product_id = @cart_product.id
       @cart_product.delete
+      @cart=Cart.find(params[:cart])
     else
       @product_detail = session[:cart][params[:product]]
       session[:cart].delete(params[:product])

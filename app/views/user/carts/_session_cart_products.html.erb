@@ -1,5 +1,5 @@
 <% unless products.blank? %>
-<div class="small-container cart-page">
+<div class="small-container cart-page" id="main-cart">
   <center>
 <table class="cart-table">
   <tr>
@@ -23,7 +23,7 @@
         </div>
       </div>
     </td>
-    <td class="cart-td">        
+    <td class="cart-td">
         <%= form_with url:user_add_quantity_path,local: false do |form| %>
           <p>
             <%= form.hidden_field :product_id ,value:product.id %>
@@ -46,17 +46,13 @@
         <td></td>
         <td style="text-align:right;"><%= link_to "Buy Now",user_orders_path(),class:"btn btn-secondary btn-sm"%></td>
       </tr>
-    </table>  
-  </div>  
+    </table>
+  </div>
+  <%= link_to "Clear Cart" ,user_cart_path(:id),method: :delete,class:"btn btn-primary",data:{ confirm: "Are you sure?" }%>
 </div>
-<%= link_to "Clear Cart" ,user_cart_path(:id),method: :delete,class:"btn btn-primary",data:{ confirm: "Are you sure?" }%>
 <%else%>
 <center>
+<br>
   <h1>No Products Added</h1>
 </center>
 <%end%>
-
-
-
-
-  
