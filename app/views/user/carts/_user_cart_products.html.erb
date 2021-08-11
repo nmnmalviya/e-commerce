@@ -1,4 +1,4 @@
-<% unless carts.products.empty? %>
+<% unless carts&.products&.empty? or carts==nil %>
 <div class="small-container cart-page" id="main-cart">
   <center>
 <table class="cart-table">
@@ -19,15 +19,15 @@
           <p><%= lineitem.product.about %></p>
           <small>price:<%= number_to_currency(lineitem.price,unit: "₹ ") %></small>
           <p>
-            <%= link_to "REMOVE",user_remove_from_cart_path(product:lineitem.product.id,cart:carts.id,total:$total),method: :delete,class:"btn btn-primary btn-sm" ,style:"width:117px;",data: { confirm: "Are you sure?" },remote:true %></p>
+            <%= link_to "REMOVE",user_remove_from_cart_path(product:lineitem.product.id,id:carts.id,total:$total),method: :delete,class:"btn btn-primary btn-sm" ,style:"width:117px;",data: { confirm: "Are you sure?" },remote:true %></p>
         </div>
       </div>
     </td>
     <td class="cart-td">
         <%= form_with url:user_add_quantity_path,local: false do |form| %>
           <p>
-            <%= form.hidden_field :id ,value:lineitem.id %>
-            <%= form.hidden_field :cart_id ,value:carts.id %>
+            <%= form.hidden_field :line_item_id ,value:lineitem.id %>
+            <%= form.hidden_field :id ,value:carts.id %>
             <%= form.label :Quantity %><br>
             <%= form.number_field :quantity ,min: 1, max: 10,:style => "width:40px",name:"quantity#{lineitem.id}",value:lineitem.quantity%>
           </p>

@@ -18,7 +18,7 @@ function numberToCurrency(total) {
     total = numberToCurrency(total);
     $('#total').html(total);
     total=total.substring(1)
-    $('#link').attr("href", "<%=request.base_url%>/user/orders/new?cart_id=<%=params[:cart]%>&total="+total);
+    $('#link').attr("href", "<%=request.base_url%>/user/orders/new?cart_id=<%=@cart.id%>&total="+total);
     <% if @cart.products.empty? %>
         $('#main-cart').html("<h1>No Product Listed</h1>");
     <%end%>

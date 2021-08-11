@@ -24,10 +24,8 @@ class User::CartsController < ApplicationController
 
   def remove_from_cart
     if user_signed_in?
-      @cart_product = LineItem.where(cart_id: params[:cart], product_id: params[:product]).first
-      @cart_product_id = @cart_product.id
-      @cart_product.delete
-      @cart=Cart.find(params[:cart])
+      @cart_product = LineItem.where(cart_id: params[:id], product_id: params[:product]).first.delete
+      @cart=Cart.find(params[:id])
     else
       @product_detail = session[:cart][params[:product]]
       session[:cart].delete(params[:product])
@@ -39,10 +37,10 @@ class User::CartsController < ApplicationController
 
   def add_quantity
     if user_signed_in?
-      @cart = Cart.find(params[:cart_id])
-      @lineitem = LineItem.find(params[:id])
+      @cart = Cart.find(params[:id])
+      @lineitem = LineItem.find(params[:line_item_id])
       @previous_quantity = @lineitem.quantity
-      @lineitem.update!(quantity: params['quantity' + params[:id]])
+      @lineitem.update!(quantity: params['quantity' + params[:line_item_id]])
     else
       @previous_quantity = session[:cart][params[:product_id]].clone
       session[:cart][params[:product_id]]['quantity'] = params['quantity' + params[:product_id]].to_i

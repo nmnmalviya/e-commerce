@@ -20,7 +20,7 @@
 <center>
 
 <div id="box">
-<button type="button" class="btn btn-secondary" id="button">
+<button type="button" class="btn btn-secondary" id="rating_button">
   Rate Product
 </button>
 <div id="wrapper">
@@ -48,10 +48,3 @@
 <div>
   <%= render "review_form" ,product:@product ,reviews:@product.reviews %>
 </div>
-
-<script>
-  $("#button").click(function() {
-  $("#box form").toggle("slow");
-  return false;
-});
-</script>

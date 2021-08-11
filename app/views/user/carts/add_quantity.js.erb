@@ -10,7 +10,7 @@ function numberToCurrency(total) {
     var currency = total[0]
     total=total.substring(1)
     total=total.replaceAll(',','')
-    
+
 <% if user_signed_in? %>
 	$('input[name="quantity<%=params[:id]%>"]').val("<%= @lineitem.quantity %>");
 	$('#price<%=@lineitem.id%>').html("<%= number_to_currency(@lineitem.quantity*@lineitem.price,unit: "₹") %>");
@@ -33,7 +33,7 @@ function numberToCurrency(total) {
 	<%if @cart.order%>
 		$('#link').attr("href", "<%=request.base_url%>/user/orders/<%= @cart.order.id %>/edit?cart_id=<%=params[:cart_id]%>&total="+total);
 	<%else%>
-		$('#link').attr("href", "<%=request.base_url%>/user/orders/new?cart_id=<%=params[:cart_id]%>&total="+total);
+		$('#link').attr("href", "<%=request.base_url%>/user/orders/new?cart_id=<%=@cart.id%>&total="+total);
 	<%end%>
 
 <%else%>

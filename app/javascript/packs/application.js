@@ -19,5 +19,10 @@ import JQuery from 'jquery';
 window.$ = window.JQuery = JQuery;
 
 import "../stylesheets/product.css"
+import { rating_home } from "./home"
 
 require.context('../images', true)
+
+$(document).on("turbolinks:load",function (){
+    rating_home();
+})
